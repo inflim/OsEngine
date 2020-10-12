@@ -752,9 +752,6 @@
     <Compile Include="OsTrader\Panels\BotPanelChartUI.xaml.cs">
       <DependentUpon>BotPanelChartUI.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Robots\MyRobots\BaseBot.cs" />
-    <Compile Include="Robots\MyRobots\MyBollinger.cs" />
-    <Compile Include="Robots\MyRobots\BollingerSar.cs" />
     <Compile Include="Robots\BotFactory.cs" />
     <Compile Include="Robots\CounterTrend\ClusterCountertrend.cs" />
     <Compile Include="Robots\Engines\CandleEngine.cs" />
@@ -779,10 +776,6 @@
     <Compile Include="Robots\OnScriptIndicators\RsiTrade.cs" />
     <Compile Include="Robots\OnScriptIndicators\RviTrade.cs" />
     <Compile Include="Robots\OnScriptIndicators\TimeOfDayBot.cs" />
-    <Compile Include="Robots\MyRobots\MyWilliams.cs" />
-    <Compile Include="Robots\MyRobots\MyPriceChannel.cs" />
-    <Compile Include="Robots\MyRobots\MySmaStochastic.cs" />
-    <Compile Include="Robots\MyRobots\StrategyLevermor.cs" />
     <Compile Include="Robots\Trend\EnvelopTrend.cs" />
     <Compile Include="Robots\Trend\MomentumMacd.cs" />
     <Compile Include="Robots\MarketMaker\PairTraderSpreadSma.cs" />

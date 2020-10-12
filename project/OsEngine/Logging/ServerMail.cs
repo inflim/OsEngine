@@ -3,7 +3,6 @@
  *Ваши права на использование кода регулируются данной лицензией http://o-s-a.net/doc/license_simple_engine.pdf
 */
 
-using System;
 using System.Globalization;
 using System.IO;
 using System.Net;
@@ -233,22 +232,19 @@ namespace OsEngine.Logging
                 mail.To.Add(new MailAddress(adress));
                 mail.Subject = "Bot_" + nameBot;
                 mail.Body = letter;
-                mail.IsBodyHtml = true;
 
                 SmtpClient client = new SmtpClient();
                 client.Host = ServerMail.GetServer().Smtp;
-                client.Port = 587; //587;
+                client.Port = 587;
                 client.EnableSsl = true;
-                client.UseDefaultCredentials = false;
-                client.Credentials = new NetworkCredential(ServerMail.GetServer().MyAdress, ServerMail.GetServer().MyPassword);
+                client.Credentials = new NetworkCredential(ServerMail.GetServer().MyAdress.Split('@')[0], ServerMail.GetServer().MyPassword);
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.Send(mail);
                 mail.Dispose();
             }
-            catch (Exception e)
+            catch
             {
-                string error = e.ToString();
-
+                 // ingored
             }
         }
     }
