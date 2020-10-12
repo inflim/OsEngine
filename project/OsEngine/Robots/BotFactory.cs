@@ -22,6 +22,7 @@ using OsEngine.Robots.MarketMaker;
 using OsEngine.Robots.Patterns;
 using OsEngine.Robots.Trend;
 using OsEngine.Robots.OnScriptIndicators;
+using OsEngine.Robots.MyRobots;
 
 namespace OsEngine.Robots
 {
@@ -36,6 +37,7 @@ namespace OsEngine.Robots
         public static List<string> GetNamesStrategy()
         {
             List<string> result = new List<string>();
+<<<<<<< Updated upstream
             result.Add("Fisher");
             result.Add("Engine");
             result.Add("ClusterEngine");
@@ -72,6 +74,55 @@ namespace OsEngine.Robots
             result.Add("RsiTrade");
             result.Add("RviTrade");
             result.AddRange(BotsWithAttribute.Keys);
+=======
+
+            ///////////// START MY BOTS ///////////////////
+            result.Add("BollingerSar");
+            result.Add("StrategyLevermor");
+            result.Add("MyBollinger");
+            result.Add("MyWilliams");
+            result.Add("MyPriceChannel");
+            result.Add("MySmaStochastic");
+
+            ///////////// END MY BOTS ///////////////////
+
+            /*  result.Add("Fisher");
+              result.Add("Engine");
+              result.Add("ClusterEngine");
+              result.Add("FundBalanceDivergenceBot");
+              result.Add("PairTraderSimple");
+              result.Add("MomentumMACD");
+              result.Add("MarketMakerBot");
+              result.Add("PatternTrader");
+              result.Add("HighFrequencyTrader");
+              result.Add("Bollinger");
+              result.Add("EnvelopTrend");
+              result.Add("Williams Band");
+              result.Add("TwoLegArbitrage");
+              result.Add("ThreeSoldier");
+              result.Add("TimeOfDayBot");
+              result.Add("PriceChannelTrade");
+              result.Add("SmaStochastic");
+              result.Add("ClusterCountertrend");
+              result.Add("PairTraderSpreadSma");
+              result.Add("WilliamsRangeTrade");
+              result.Add("ParabolicSarTrade");
+              result.Add("PivotPointsRobot");
+              result.Add("RsiContrtrend");
+              result.Add("PinBarTrade");
+              result.Add("BbPowerTrade");
+              result.Add("BollingerRevers");
+              result.Add("BollingerTrailing");
+              result.Add("CciTrade");
+              result.Add("MacdRevers");
+              result.Add("MacdTrail");
+              result.Add("OneLegArbitrage");
+              result.Add("PairRsiTrade");
+              result.Add("PriceChannelBreak");
+              result.Add("PriceChannelVolatility");
+              result.Add("RsiTrade");
+              result.Add("RviTrade");*/
+>>>>>>> Stashed changes
 
             List<string> resultTrue = new List<string>();
 
@@ -113,6 +164,7 @@ namespace OsEngine.Robots
                 bot = CreateScriptStrategyByName(nameClass, name, startProgram);
                 return bot;
             }
+<<<<<<< Updated upstream
             
             if (nameClass == "TimeOfDayBot")
             {
@@ -147,48 +199,104 @@ namespace OsEngine.Robots
                 bot = new MacdRevers(name, startProgram);
             }
             if (nameClass == "MacdTrail")
-            {
-                bot = new MacdTrail(name, startProgram);
-            }
-            if (nameClass == "OneLegArbitrage")
-            {
-                bot = new OneLegArbitrage(name, startProgram);
-            }
-            if (nameClass == "PairRsiTrade")
-            {
-                bot = new PairRsiTrade(name, startProgram);
-            }
-            if (nameClass == "PriceChannelBreak")
-            {
-                bot = new PriceChannelBreak(name, startProgram);
-            }
-            if (nameClass == "PriceChannelVolatility")
-            {
-                bot = new PriceChannelVolatility(name, startProgram);
-            }
-            if (nameClass == "RsiTrade")
-            {
-                bot = new RsiTrade(name, startProgram);
-            }
-            if (nameClass == "RviTrade")
-            {
-                bot = new RviTrade(name, startProgram);
-            }
+=======
 
-            if (nameClass == "MomentumMACD")
+            ///////////// START MY BOTS ///////////////////
+            if (nameClass == "BollingerSar")
+>>>>>>> Stashed changes
             {
-                bot = new MomentumMacd(name, startProgram);
+                bot = new BollingerSar(name, startProgram);
             }
+            if (nameClass == "StrategyLevermor")
+            {
+                bot = new StrategyLevermor(name, startProgram);
+            }
+            if (nameClass == "MyBollinger")
+            {
+                bot = new MyBollinger(name, startProgram);
+            }
+            if (nameClass == "MyWilliams")
+            {
+                bot = new MyWilliams(name, startProgram);
+            }
+            if (nameClass == "MyPriceChannel")
+            {
+                bot = new MyPriceChannel(name, startProgram);
+            }
+            if (nameClass == "MySmaStochastic")
+            {
+                bot = new MySmaStochastic(name, startProgram);
+            }
+            ///////////// END MY BOTS ///////////////////
 
-            if (nameClass == "Engine")
-            {
-                bot = new CandleEngine(name, startProgram);
-            }
-            if (nameClass == "ClusterEngine")
-            {
-                bot = new ClusterEngine(name, startProgram);
-            }
+            /*
+                        if (nameClass == "TimeOfDayBot")
+                        {
+                            bot = new TimeOfDayBot(name, startProgram);
+                        }
+                        if (nameClass == "Fisher")
+                        {
+                            bot = new Fisher(name, startProgram);
+                        }
+                        if (nameClass == "FundBalanceDivergenceBot")
+                        {
+                            bot = new FundBalanceDivergenceBot(name, startProgram);
+                        }
+                        if (nameClass == "BbPowerTrade")
+                        {
+                            bot = new BbPowerTrade(name, startProgram);
+                        }
+                        if (nameClass == "BollingerRevers")
+                        {
+                            bot = new BollingerRevers(name, startProgram);
+                        }
+                        if (nameClass == "BollingerTrailing")
+                        {
+                            bot = new BollingerTrailing(name, startProgram);
+                        }
+                        if (nameClass == "CciTrade")
+                        {
+                            bot = new CciTrade(name, startProgram);
+                        }
+                        if (nameClass == "MacdRevers")
+                        {
+                            bot = new MacdRevers(name, startProgram);
+                        }
+                        if (nameClass == "MacdTrail")
+                        {
+                            bot = new MacdTrail(name, startProgram);
+                        }
+                        if (nameClass == "OneLegArbitrage")
+                        {
+                            bot = new OneLegArbitrage(name, startProgram);
+                        }
+                        if (nameClass == "PairRsiTrade")
+                        {
+                            bot = new PairRsiTrade(name, startProgram);
+                        }
+                        if (nameClass == "PriceChannelBreak")
+                        {
+                            bot = new PriceChannelBreak(name, startProgram);
+                        }
+                        if (nameClass == "PriceChannelVolatility")
+                        {
+                            bot = new PriceChannelVolatility(name, startProgram);
+                        }
+                        if (nameClass == "RsiTrade")
+                        {
+                            bot = new RsiTrade(name, startProgram);
+                        }
+                        if (nameClass == "RviTrade")
+                        {
+                            bot = new RviTrade(name, startProgram);
+                        }
 
+                        if (nameClass == "MomentumMACD")
+                        {
+                            bot = new MomentumMacd(name, startProgram);
+                        }
+
+<<<<<<< Updated upstream
             if (nameClass == "PairTraderSimple")
             {
                 bot = new PairTraderSimple(name, startProgram);
@@ -262,6 +370,90 @@ namespace OsEngine.Robots
                 Type botType = BotsWithAttribute[nameClass];
                 bot = (BotPanel) Activator.CreateInstance(botType, name, startProgram);
             }
+=======
+                        if (nameClass == "Engine")
+                        {
+                            bot = new CandleEngine(name, startProgram);
+                        }
+                        if (nameClass == "ClusterEngine")
+                        {
+                            bot = new ClusterEngine(name, startProgram);
+                        }
+
+                        if (nameClass == "PairTraderSimple")
+                        {
+                            bot = new PairTraderSimple(name, startProgram);
+                        }
+                        if (nameClass == "EnvelopTrend")
+                        {
+                            bot = new EnvelopTrend(name, startProgram);
+                        }
+                        if (nameClass == "ClusterCountertrend")
+                        {
+                            bot = new ClusterCountertrend(name, startProgram);
+                        }
+                        if (nameClass == "PatternTrader")
+                        {
+                            bot = new PatternTrader(name, startProgram);
+                        }
+                        if (nameClass == "HighFrequencyTrader")
+                        {
+                            bot = new HighFrequencyTrader(name, startProgram);
+                        }
+                        if (nameClass == "PivotPointsRobot")
+                        {
+                            bot = new PivotPointsRobot(name, startProgram);
+                        }
+                        if (nameClass == "Williams Band")
+                        {
+                            bot = new StrategyBillWilliams(name, startProgram);
+                        }
+                        if (nameClass == "MarketMakerBot")
+                        {
+                            bot = new MarketMakerBot(name, startProgram);
+                        }
+                        if (nameClass == "Bollinger")
+                        {
+                            bot = new StrategyBollinger(name, startProgram);
+                        }
+                        if (nameClass == "ParabolicSarTrade")
+                        {
+                            bot = new ParabolicSarTrade(name, startProgram);
+                        }
+                        if (nameClass == "PriceChannelTrade")
+                        {
+                            bot = new PriceChannelTrade(name, startProgram);
+                        }
+                        if (nameClass == "WilliamsRangeTrade")
+                        {
+                            bot = new WilliamsRangeTrade(name, startProgram);
+                        }
+                        if (nameClass == "SmaStochastic")
+                        {
+                            bot = new SmaStochastic(name, startProgram);
+                        }
+                        if (nameClass == "PinBarTrade")
+                        {
+                            bot = new PinBarTrade(name, startProgram);
+                        }
+                        if (nameClass == "TwoLegArbitrage")
+                        {
+                            bot = new TwoLegArbitrage(name, startProgram);
+                        }
+                        if (nameClass == "ThreeSoldier")
+                        {
+                            bot = new ThreeSoldier(name, startProgram);
+                        }
+                        if (nameClass == "RsiContrtrend")
+                        {
+                            bot = new RsiContrtrend(name, startProgram);
+                        }
+                        if (nameClass == "PairTraderSpreadSma")
+                        {
+                            bot = new PairTraderSpreadSma(name, startProgram);
+                        }
+            */
+>>>>>>> Stashed changes
 
             return bot;
         }

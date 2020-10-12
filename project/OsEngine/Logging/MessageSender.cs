@@ -188,10 +188,10 @@ namespace OsEngine.Logging
         /// </summary>
         public void AddNewMessage(LogMessage message)
         {
-            if (_startProgram != StartProgram.IsOsTrader)
-            {
-                return;
-            }
+          //  if (_startProgram != StartProgram.IsOsTrader)
+           // {
+            //    return;
+           // }
 
             if (WebhookSendOn)
             {
