@@ -3574,7 +3574,8 @@ namespace OsEngine.OsTrader.Panels.Tab
 
                     if (StartProgram == StartProgram.IsOsTrader)
                     {
-                        SetNewLogMessage(TabName + OsLocalization.Trader.Label71 + position.Number, LogMessageType.Trade);
+                        SetNewLogMessage(TabName + OsLocalization.Trader.Label71 + position.Number + ": " +
+                            position.SecurityName + " " + position.Direction + " " + position.ClosePrice, LogMessageType.Trade);
                     }
                     else
                     {
@@ -3592,7 +3593,8 @@ namespace OsEngine.OsTrader.Panels.Tab
                 }
                 else if (position.State == PositionStateType.OpeningFail)
                 {
-                    SetNewLogMessage(TabName + OsLocalization.Trader.Label72 + position.Number, LogMessageType.System);
+                    SetNewLogMessage(TabName + OsLocalization.Trader.Label72 + position.Number + ": " +
+                            position.SecurityName + " " + position.Direction + " " + position.EntryPrice, LogMessageType.System);
 
                     if (PositionOpeningFailEvent != null)
                     {
@@ -3601,7 +3603,8 @@ namespace OsEngine.OsTrader.Panels.Tab
                 }
                 else if (position.State == PositionStateType.Open)
                 {
-                    SetNewLogMessage(TabName + OsLocalization.Trader.Label73 + position.Number, LogMessageType.Trade);
+                    SetNewLogMessage(TabName + OsLocalization.Trader.Label73 + position.Number + ": " +
+                            position.SecurityName + " " + position.Direction + " " + position.EntryPrice, LogMessageType.Trade);
                     if (PositionOpeningSuccesEvent != null)
                     {
                         PositionOpeningSuccesEvent(position);
@@ -3612,7 +3615,8 @@ namespace OsEngine.OsTrader.Panels.Tab
                 {
                     if (StartProgram == StartProgram.IsOsTrader)
                     {
-                        SetNewLogMessage(TabName + OsLocalization.Trader.Label74 + position.Number, LogMessageType.System);
+                        SetNewLogMessage(TabName + OsLocalization.Trader.Label74 + position.Number + ": " +
+                            position.SecurityName + " " + position.Direction + " " + position.EntryPrice, LogMessageType.System);
                     }
 
                     if (ManualPositionSupport.DoubleExitIsOn &&

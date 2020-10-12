@@ -237,7 +237,8 @@ namespace OsEngine.Logging
                 client.Host = ServerMail.GetServer().Smtp;
                 client.Port = 587;
                 client.EnableSsl = true;
-                client.Credentials = new NetworkCredential(ServerMail.GetServer().MyAdress.Split('@')[0], ServerMail.GetServer().MyPassword);
+                client.UseDefaultCredentials = false;
+                client.Credentials = new NetworkCredential(ServerMail.GetServer().MyAdress, ServerMail.GetServer().MyPassword);
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.Send(mail);
                 mail.Dispose();
