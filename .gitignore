@@ -30,6 +30,7 @@ Plaza/Log/
 Data/
 lua/logs/
 Custom/Indicators/bin/
+**/[Dd]ebug/**.xml
 
 # Visual Studio 2015 cache/options directory
 .vs/
@@ -55,12 +56,14 @@ project.fragment.lock.json
 artifacts/
 **/Properties/launchSettings.json
 
+
 *_i.c
 *_p.c
 *_i.h
 *.ilk
 *.meta
 *.obj
+*.dat
 *.pch
 *.pdb
 *.pgc
@@ -79,6 +82,7 @@ artifacts/
 *.pidb
 *.svclog
 *.scc
+*.exe
 
 # Chutzpah Test files
 _Chutzpah*
@@ -196,6 +200,7 @@ _pkginfo.txt
 *.[Cc]ache
 # but keep track of directories ending in .cache
 !*.[Cc]ache/
+
 
 # Others
 ClientBin/

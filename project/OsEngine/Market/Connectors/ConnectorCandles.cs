@@ -152,8 +152,8 @@ namespace OsEngine.Market.Connectors
 
             if (_emulator != null)
             {
-                _emulator.MyTradeEvent += ConnectorBot_NewMyTradeEvent;
-                _emulator.OrderChangeEvent += ConnectorBot_NewOrderIncomeEvent;
+                _emulator.MyTradeEvent -= ConnectorBot_NewMyTradeEvent;
+                _emulator.OrderChangeEvent -= ConnectorBot_NewOrderIncomeEvent;
             }
 
             if (_myServer != null)
@@ -1101,7 +1101,7 @@ namespace OsEngine.Market.Connectors
             catch
             {
                 // it's hard to catch the error here. Who will understand what is wrong - well done 
-                // ошибка сдесь трудноуловимая. Кто поймёт что не так - молодец
+                // ошибка здесь трудноуловимая. Кто понял что не так - молодец
                 return;
             }
 
@@ -1287,7 +1287,9 @@ namespace OsEngine.Market.Connectors
                 order.ServerType = ServerType;
                 order.TimeCreate = MarketTime;
 
-                if (EmulatorIsOn || _myServer.ServerType == ServerType.Finam)
+                if (StartProgram != StartProgram.IsTester &&
+                    StartProgram != StartProgram.IsOsOptimizer &&
+                    (EmulatorIsOn || _myServer.ServerType == ServerType.Finam))
                 {
                     _emulator.OrderExecute(order);
                 }

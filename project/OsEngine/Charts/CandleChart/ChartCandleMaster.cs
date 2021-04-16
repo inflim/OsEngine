@@ -19,6 +19,7 @@ using OsEngine.Indicators;
 using OsEngine.Language;
 using OsEngine.Logging;
 using OsEngine.Market;
+using OsEngine.PrimeSettings;
 
 namespace OsEngine.Charts.CandleChart
 {
@@ -42,6 +43,7 @@ namespace OsEngine.Charts.CandleChart
             _startProgram = startProgram;
 
             ChartCandle = new WinFormsChartPainter(nameBoss, startProgram);
+
             ChartCandle.ChartClickEvent += ChartCandle_ChartClickEvent;
             ChartCandle.LogMessageEvent += NewLogMessage;
             ChartCandle.ClickToIndexEvent += _chartCandle_ClickToIndexEvent;
@@ -282,7 +284,14 @@ namespace OsEngine.Charts.CandleChart
                         {
                             CreateIndicator(new TradeThread(indicator[1], Convert.ToBoolean(indicator[3])), indicator[2]);
                         }
-
+                        if (indicator[0] == "LinearRegressionCurve")
+                        {
+                            CreateIndicator(new LinearRegressionCurve(indicator[1], Convert.ToBoolean(indicator[3])), indicator[2]);
+                        }
+                        if (indicator[0] == "SimpleVWAP")
+                        {
+                            CreateIndicator(new SimpleVWAP(indicator[1], Convert.ToBoolean(indicator[3])), indicator[2]);
+                        }
                     }
 
                     reader.Close();

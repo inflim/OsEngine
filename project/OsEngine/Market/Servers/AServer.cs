@@ -57,6 +57,9 @@ namespace OsEngine.Market.Servers
                 CreateParameterBoolean(OsLocalization.Market.ServerParam7, false);
                 _needToLoadBidAskInTrades = (ServerParameterBool)ServerParameters[ServerParameters.Count - 1];
 
+                CreateParameterBoolean(OsLocalization.Market.ServerParam8, false);
+                _needToRemoveTradesFromMemory = (ServerParameterBool)ServerParameters[ServerParameters.Count - 1];
+
                 _serverRealization.ServerParameters = ServerParameters;
 
                 _tickStorage = new ServerTickStorage(this);
@@ -99,6 +102,8 @@ namespace OsEngine.Market.Servers
             }
             get { return _serverRealization; }
         }
+
+        private object trades_locker = new object();
 
         private double _waitTimeAfterFirstStart = 60;
 
@@ -193,6 +198,8 @@ namespace OsEngine.Market.Servers
 
         private ServerParameterBool _needToLoadBidAskInTrades;
 
+        private ServerParameterBool _needToRemoveTradesFromMemory;
+
         public bool NeedToHideParams = false;
 
         /// <summary>
@@ -214,7 +221,7 @@ namespace OsEngine.Market.Servers
             newParam = (ServerParameterString)LoadParam(newParam);
             if (_serverIsStart)
             {
-                ServerParameters.Insert(ServerParameters.Count - 5, newParam);
+                ServerParameters.Insert(ServerParameters.Count - 6, newParam);
             }
             else
             {
@@ -237,7 +244,7 @@ namespace OsEngine.Market.Servers
             newParam = (ServerParameterInt)LoadParam(newParam);
             if (_serverIsStart)
             {
-                ServerParameters.Insert(ServerParameters.Count - 5, newParam);
+                ServerParameters.Insert(ServerParameters.Count - 6, newParam);
             }
             else
             {
@@ -257,7 +264,7 @@ namespace OsEngine.Market.Servers
 
             if (_serverIsStart)
             {
-                ServerParameters.Insert(ServerParameters.Count - 5, newParam);
+                ServerParameters.Insert(ServerParameters.Count - 6, newParam);
             }
             else
             {
@@ -280,7 +287,7 @@ namespace OsEngine.Market.Servers
             newParam = (ServerParameterDecimal)LoadParam(newParam);
             if (_serverIsStart)
             {
-                ServerParameters.Insert(ServerParameters.Count - 5, newParam);
+                ServerParameters.Insert(ServerParameters.Count - 6, newParam);
             }
             else
             {
@@ -303,7 +310,7 @@ namespace OsEngine.Market.Servers
             newParam = (ServerParameterBool)LoadParam(newParam);
             if (_serverIsStart)
             {
-                ServerParameters.Insert(ServerParameters.Count - 5, newParam);
+                ServerParameters.Insert(ServerParameters.Count - 6, newParam);
             }
             else
             {
@@ -327,7 +334,7 @@ namespace OsEngine.Market.Servers
             newParam = (ServerParameterPassword)LoadParam(newParam);
             if (_serverIsStart)
             {
-                ServerParameters.Insert(ServerParameters.Count - 5, newParam);
+                ServerParameters.Insert(ServerParameters.Count - 6, newParam);
             }
             else
             {
@@ -349,7 +356,29 @@ namespace OsEngine.Market.Servers
             newParam = (ServerParameterPath)LoadParam(newParam);
             if (_serverIsStart)
             {
-                ServerParameters.Insert(ServerParameters.Count - 5, newParam);
+                ServerParameters.Insert(ServerParameters.Count - 6, newParam);
+            }
+            else
+            {
+                ServerParameters.Add(newParam);
+            }
+
+            newParam.ValueChange += newParam_ValueChange;
+        }
+
+        /// <summary>
+        /// create Button server parameter
+        /// создать параметр сервера типа кнопка
+        /// </summary>
+        public void CreateParameterButton(string name)
+        {
+            ServerParameterButton newParam = new ServerParameterButton();
+            newParam.Name = name;
+
+            newParam = (ServerParameterButton)LoadParam(newParam);
+            if (_serverIsStart)
+            {
+                ServerParameters.Insert(ServerParameters.Count - 6, newParam);
             }
             else
             {
@@ -816,13 +845,35 @@ namespace OsEngine.Market.Servers
                     }
                     else if (!_tradesToSend.IsEmpty)
                     {
-                        List<Trade> trades;
-
-                        if (_tradesToSend.TryDequeue(out trades))
+                        lock (trades_locker)
                         {
-                            if (NewTradeEvent != null)
+                            List<Trade> trades;
+
+                            if (_tradesToSend.TryDequeue(out trades))
                             {
-                                NewTradeEvent(trades);
+                                if (NewTradeEvent != null)
+                                {
+                                    NewTradeEvent(trades);
+                                }
+                                if (_needToRemoveTradesFromMemory.Value == true && _allTrades != null)
+
+                                {
+                                    foreach (var el in _allTrades)
+                                    {
+                                        if (el.Count > 100)
+                                        {
+                                            for (int i = el.Count - 100; i > 0; i--)
+                                            {
+                                                if (el[i] == null)
+                                                {
+                                                    break;
+                                                }
+                                                el[i] = null;
+                                            }
+                                        }
+                                    }
+                                }
+
                             }
                         }
                     }
@@ -1028,16 +1079,20 @@ namespace OsEngine.Market.Servers
                         }
                     }
 
-                    if (portf[i].ValueCurrent != 0)
-                    {
-
-                    }
-
                     curPortfolio.Profit = portf[i].Profit;
                     curPortfolio.ValueBegin = portf[i].ValueBegin;
                     curPortfolio.ValueCurrent = portf[i].ValueCurrent;
                     curPortfolio.ValueBlocked = portf[i].ValueBlocked;
 
+                    var positions = portf[i].GetPositionOnBoard();
+
+                    if (positions != null)
+                    {
+                        foreach (var positionOnBoard in positions)
+                        {
+                            curPortfolio.SetNewPosition(positionOnBoard);
+                        }
+                    }
                 }
 
                 _portfolioToSend.Enqueue(_portfolios);
@@ -1697,6 +1752,13 @@ namespace OsEngine.Market.Servers
                         myList = allTradesNew[allTradesNew.Length - 1];
                         _allTrades = allTradesNew;
                     }
+                    /*
+                    if (_needToRemoveTradesFromMemory.Value == true &&
+                        myList.Count > 100)
+                    {
+                        myList[myList.Count - 100] = null;
+                    }
+                    */
 
                     _tradesToSend.Enqueue(myList);
                 }

@@ -268,7 +268,16 @@ namespace OsEngine.Market.Servers.QuikLua
                 newSec.NameId = oneSec.Name;
 
                 newSec.Decimals = Convert.ToInt32(oneSec.Scale);
-                newSec.Lot = Convert.ToDecimal(oneSec.LotSize);
+
+                if (oneSec.ClassCode != "SPBFUT")
+                {
+                    newSec.Lot = Convert.ToDecimal(oneSec.LotSize);
+                }
+                else
+                {
+                    newSec.Lot = 1;
+                }
+
                 newSec.NameClass = oneSec.ClassCode;
 
                 newSec.PriceLimitHigh = Convert.ToDecimal(QuikLua.Trading
@@ -1244,7 +1253,7 @@ namespace OsEngine.Market.Servers.QuikLua
                 {
                     for (int i = 0; i < trades.Count; i++)
                     {
-                        EventsOnOnTrade(trades[i]);
+                       // EventsOnOnTrade(trades[i]);
                     }
                 }
             }

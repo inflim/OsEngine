@@ -53,7 +53,7 @@ namespace CustomIndicators.Scripts
                 return;
             }
 
-            DataClear();
+            DataClear(index);
 
             // variables
             decimal a, b, c,
@@ -124,27 +124,27 @@ namespace CustomIndicators.Scripts
                 _seriesUpperband.Values[i] = _seriesCentralLine.Values[i] +
                                              (standartError * _upDeviation.ValueDecimal);
 
-                _seriesLowerband.Values[i] = _seriesCentralLine.Values[i] +
+                _seriesLowerband.Values[i] = _seriesCentralLine.Values[i] -
                                              (standartError * _downDeviation.ValueDecimal);
 
             }
         }
 
-        private void DataClear()
+        private void DataClear(int index)
         {
-            for (int i = 0; i < _seriesCentralLine.Values.Count; i++)
+            for (int i = index - _period.ValueInt + 1; i < _seriesCentralLine.Values.Count; i++)
             {
                 _seriesCentralLine.Values[i] = 0;
 
             }
 
-            for (int i = 0; i < _seriesUpperband.Values.Count; i++)
+            for (int i = index - _period.ValueInt + 1; i < _seriesUpperband.Values.Count; i++)
             {
                 _seriesUpperband.Values[i] = 0;
             }
 
 
-            for (int i = 0; i < _seriesLowerband.Values.Count; i++)
+            for (int i = index - _period.ValueInt + 1; i < _seriesLowerband.Values.Count; i++)
             {
                 _seriesLowerband.Values[i] = 0;
             }
